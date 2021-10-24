@@ -14,7 +14,7 @@ const SearchBar = () =>{
         fetchRepos(username)
         .then(res =>{
             setLoading(false);
-            console.log(res.data);
+            setRepos(res.data);
             
         });
         
