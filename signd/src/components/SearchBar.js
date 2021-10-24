@@ -1,12 +1,23 @@
 import React, {useState} from 'react';
+import  fetchRepos  from './api';
+import Result from './Result';
 
 const SearchBar = () =>{
 
     const [username, setUsername] = useState('');
     const [loading, setLoading] = useState(false);
+    const [repos, setRepos] = useState([]);
 
     const handleSubmit = (e) =>{
         e.preventDefault();
+        setLoading(true);
+        fetchRepos(username)
+        .then(res =>{
+            setLoading(false);
+            console.log(res.data);
+            
+        });
+        
 
 
     };
@@ -20,9 +31,12 @@ const SearchBar = () =>{
         value = {username} 
         placeholder = 'Github Username'
         onChange  = {e => setUsername(e.target.value)}/>
-            <button className = 'button' onClick = {handleSubmit}>search</button>
+            <button className = 'button' onClick = {handleSubmit}>{loading? 'searching...' : 'search'}</button>
         
     </form>
+    </div>
+    <div>
+        <Result repos = {repos} />
     </div>
     </>;
 };
