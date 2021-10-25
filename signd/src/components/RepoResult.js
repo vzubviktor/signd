@@ -1,6 +1,6 @@
 import React from "react";
 
-const Result = (props) =>{
+const RepoResult = (props) =>{
 
     const {repos}  = props;
     // console.log(props);
@@ -20,4 +20,4 @@ const Result = (props) =>{
     </>;
 };
 
-export default Result;
+export default RepoResult;
