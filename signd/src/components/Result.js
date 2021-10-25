@@ -3,12 +3,11 @@ import React from "react";
 const Result = (props) =>{
 
     const {repos}  = props;
-    console.log(props);
+    // console.log(props);
     const repoResult = repos.map((repo) =>{
-        const {id, name, description} = repo;
+        const {id, name, html_url, description} = repo;
         return <div key ={id}>
-            <p> repo name : {name} </p>
-            <p> description : {description}</p>
+            {name}
         </div>
     });
     

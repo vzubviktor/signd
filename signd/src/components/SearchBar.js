@@ -25,16 +25,19 @@ const SearchBar = () =>{
 
 
     return <>
-    <div>
-    <form>
-        <input className = 'input' 
+    <nav class="navbar navbar-light bg-light">
+    <div className="container-fluid">
+    <form className="d-flex">
+        <input className = "form-control me-2"
+        type="search"
         value = {username} 
         placeholder = 'Github Username'
         onChange  = {e => setUsername(e.target.value)}/>
-            <button className = 'button' onClick = {handleSubmit}>{loading? 'searching...' : 'search'}</button>
+            <button className = "btn btn-outline-success" type="submit" onClick = {handleSubmit}>{loading? 'searching...' : 'search'}</button>
         
     </form>
     </div>
+    </nav>
     <div>
         <Result repos = {repos} />
     </div>
