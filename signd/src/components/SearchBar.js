@@ -15,7 +15,12 @@ const SearchBar = () =>{
         fetchRepos(username)
         .then(res =>{
             setLoading(false);
-            setRepos(res.data);
+            if (res) {
+                setRepos(res.data); }
+            else {
+                alert('Username not found')
+            }
+            
             
         })};
         
