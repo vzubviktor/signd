@@ -10,13 +10,14 @@ const SearchBar = () =>{
 
     const handleSubmit = (e) =>{
         e.preventDefault();
+        if (username) {
         setLoading(true);
         fetchRepos(username)
         .then(res =>{
             setLoading(false);
             setRepos(res.data);
             
-        });
+        })};
         
 
 
@@ -25,7 +26,7 @@ const SearchBar = () =>{
 
 
     return <>
-    <nav class="navbar navbar-light bg-light">
+    <nav classN ="navbar navbar-light bg-light">
     <div className="container-fluid">
     <form className="d-flex">
         <input className = "form-control me-2"

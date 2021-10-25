@@ -6,7 +6,7 @@ const Result = (props) =>{
     // console.log(props);
     const repoResult = repos.map((repo) =>{
         const {id, name, html_url, description} = repo;
-        return <div key ={id}>
+        return <div key ={id} className = 'row'>
             {name}
         </div>
     });
@@ -14,7 +14,7 @@ const Result = (props) =>{
     
     
     return <>
-    <div>
+    <div className = 'results-container'>
         {repoResult}
     </div>
     </>;
