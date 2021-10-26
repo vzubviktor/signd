@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import  {fetchRepos, fetchUser}  from './api';
+import  {fetchOrgs, fetchRepos, fetchUser}  from './api';
 import RepoResult from './RepoResult';
 import axios from 'axios';
 import OrgResult from './OrgResult';
@@ -12,23 +12,45 @@ const SearchBar = () =>{
     const [repos, setRepos] = useState([]);
     const [orgs, setOrgs] = useState([]);
     const [user, setUser] = useState('');
+    const [repoMessage, setRepoMessage] = useState('');
+    const [orgMessage, setOrgMessage] = useState('');
 
+    const handleRepoResult =  async (username) =>{
+        
+        const repoResult = await fetchRepos(username);
+        if (repoResult.length != 0){
+            
+            setRepos(repoResult);
+            setRepoMessage('list of repos found ')
+        }
+        else{
+            setRepoMessage(' no repos are found');
+            setRepos([]);
+            
+        }
+        
+        
+    }
 
     const handleSubmit = async (e) =>{
         
         e.preventDefault();
         setLoading(true);
-        const result = await fetchUser(username);
+        const userResult = await fetchUser(username);
         setLoading(false);
         
-        if (result) {
+        if (userResult) {
             setUser(username); 
-            fetchRepos(username)
-            .then(res => setRepos(res));
+            handleRepoResult(username);
+
+            
+            
+          
            }
         else {
             setRepos([]);
             setUser('username not found');
+            setRepoMessage('')
         }
      
     };
@@ -49,10 +71,17 @@ const SearchBar = () =>{
     </form>
     </div>
     </nav>
-    <div>{user}</div>
-    <div>
-        <RepoResult repos = {repos} />
-        <OrgResult />
+    <div className  = 'user'>
+        {user}
+    </div>
+    <div className = 'result' >
+        <div> 
+            <h4> {repoMessage} </h4>
+            <RepoResult repos = {repos} />
+            </div>
+        <div>
+            <h4> {orgMessage} </h4>
+            <OrgResult orgs = {orgs} /></div>
     </div>
     </>;
 };

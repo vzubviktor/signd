@@ -14,7 +14,7 @@ const RepoResult = (props) =>{
     
     
     return <>
-    <div className = 'results-container'>
+    <div className = 'repo-container'>
         {repoResult}
     </div>
     </>;

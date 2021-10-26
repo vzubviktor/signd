@@ -24,3 +24,18 @@ export const fetchUser =  (username) => {
     })
  };
 
+ export const fetchOrgs = async  (username) => {
+  return await  axios.get(`https://api.github.com/users/${username}/orgs`)
+  .then((res) =>{
+    if (res.data) {
+      console.log(res.data)
+      return res.data;
+    }
+    else {
+      console.log('no orgs are found ')
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+};
