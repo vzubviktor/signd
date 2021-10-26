@@ -28,7 +28,6 @@ export const fetchUser =  (username) => {
   return await  axios.get(`https://api.github.com/users/${username}/orgs`)
   .then((res) =>{
     if (res.data) {
-      console.log(res.data)
       return res.data;
     }
     else {

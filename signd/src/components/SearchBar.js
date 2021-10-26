@@ -13,24 +13,9 @@ const SearchBar = () =>{
     const [orgs, setOrgs] = useState([]);
     const [user, setUser] = useState('');
     const [repoMessage, setRepoMessage] = useState('');
-    const [orgMessage, setOrgMessage] = useState('');
+    
 
-    const handleRepoResult =  async (username) =>{
-        
-        const repoResult = await fetchRepos(username);
-        if (repoResult.length != 0){
-            
-            setRepos(repoResult);
-            setRepoMessage('list of repos found ')
-        }
-        else{
-            setRepoMessage(' no repos are found');
-            setRepos([]);
-            
-        }
-        
-        
-    }
+   
 
     const handleSubmit = async (e) =>{
         
@@ -41,16 +26,11 @@ const SearchBar = () =>{
         
         if (userResult) {
             setUser(username); 
-            handleRepoResult(username);
-
-            
-            
-          
-           }
+            }
         else {
             setRepos([]);
             setUser('username not found');
-            setRepoMessage('')
+            
         }
      
     };
@@ -76,12 +56,11 @@ const SearchBar = () =>{
     </div>
     <div className = 'result' >
         <div> 
-            <h4> {repoMessage} </h4>
-            <RepoResult repos = {repos} />
-            </div>
+            <RepoResult user = {user} />
+        </div>
         <div>
-            <h4> {orgMessage} </h4>
-            <OrgResult orgs = {orgs} /></div>
+            <OrgResult user = {user} />
+        </div>
     </div>
     </>;
 };
