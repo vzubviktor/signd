@@ -1,13 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import  {fetchOrgs}  from './api';
-import axios from 'axios';
-
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 
 const OrgResult = (props) =>{
     const user  = props.user;
     const [orgs, setOrgs] = useState([])
     const [orgMessage, setOrgMessage] = useState('');
+    const [loading, setLoading]  = useState(false);
+
+
+    const spinner = () =>{
+        return <div className = 'spinner'>
+            <Loader type="TailSpin" color="#00BFFF" height={200} width={200} />
+        </div>
+    };
+
+    
 
 
     const handleOrgResult =  async (user) =>{
@@ -22,7 +32,6 @@ const OrgResult = (props) =>{
                     setOrgs([]);
                 }
             }
-
         else {
             setOrgMessage('')
             setOrgs([]);
@@ -31,6 +40,7 @@ const OrgResult = (props) =>{
 
     useEffect(() =>{
         handleOrgResult(user);
+        return () => setLoading(false);
     }, [user])
 
     
