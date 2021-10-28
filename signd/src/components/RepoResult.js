@@ -25,9 +25,10 @@ const RepoResult = (props) =>{
      const repoResult = repos.map((repo) =>{
             
             const {id, login,  name, html_url, description} = repo;
-            return <div key ={id} className = 'row'>
-                {name}
-            </div>
+            return <div className = "row">
+                    {name}
+                </div>
+                   
         });
 
 
@@ -42,13 +43,14 @@ const RepoResult = (props) =>{
     
     
     
-    return <>
-    <div className = 'repo-container'>
-                 <h4>{message}</h4>
+    return     <div className="col">
+                    <h4>{message}</h4>
                       {repoResult}
-            </div> 
+                </div>
+                 
+         
     
-    </>;
+    
 };
 
 export default RepoResult;

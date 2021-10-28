@@ -18,7 +18,6 @@ const OrgResult = (props) =>{
     if (message ==='user not found'){
         message = '';
     }
-    console.log(orgs)
 
     
         
@@ -26,9 +25,10 @@ const OrgResult = (props) =>{
      const orgResult = orgs.map((org) =>{
             
             const {id, name, login,  html_url, description} = org;
-            return <div key ={id} className = 'row'>
-                {login}
-            </div>
+
+            return  <div className = "row">
+                             {login}
+                     </div>
         });
 
 
@@ -43,13 +43,12 @@ const OrgResult = (props) =>{
     
     
     
-    return <>
-    <div className = 'repo-container'>
-                 <h4>{message}</h4>
-                      {orgResult}
-            </div> 
+    return <div className="col">
+              <h4>{message}</h4>
+                {orgResult}
+          </div>
     
-    </>;
+    
 };
 
 export default OrgResult;

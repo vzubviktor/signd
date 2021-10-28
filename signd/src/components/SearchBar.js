@@ -70,11 +70,16 @@ const SearchBar = () =>{
             </form>
         </div>
     </nav> 
-    <div className = 'output'>{loading? <Spinner />  : <div className = 'result'>
-                                                            <div className  = 'user'>{message}</div> 
-                                                            <RepoResult repos = {repos} message = {message} /> 
-                                                            <OrgResult orgs = {orgs} message = {message}/>
-                                                        </div>}
+    <div className = 'output'>{loading? <Spinner />  : <>
+                                                            <div className  = 'container'>{message}</div> 
+                                                            <div className="container">
+                                                                <div className="row">
+                                                                    <RepoResult repos = {repos} message = {message} /> 
+                                                                    <OrgResult orgs = {orgs} message = {message}/>
+                                                                </div>
+                                                            </div>
+                                                        </>
+                              }
            
         
     </div>
