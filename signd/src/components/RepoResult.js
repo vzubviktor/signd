@@ -6,73 +6,33 @@ import Loader from "react-loader-spinner";
 
 const RepoResult = (props) =>{
 
-    const user  = props.user;
-    const [repos, setRepos] = useState([]);
-    const [repoMessage, setRepoMessage] = useState('');
-    const [loading, setLoading]  = useState(false);
+    const repos  = props.repos;
+    let message  = props.message
 
-
-
-    const Spinner = () =>{
-        return <div className = 'spinner'>
-            <Loader type="ThreeDots" color="#00BFFF" height={80} width={80}  />
-        </div>
-    };
-    
-    const ResultField = () =>{
-     
-     return <div className = 'repo-container'>
-                 <h4>{repoMessage}</h4>
-                      {repoResult}
-            </div> 
-     };
-
-     const repoResult = repos.map((repo) =>{
-        const {id, name, html_url, description} = repo;
-        return <div key ={id} className = 'row'>
-            {name}
-        </div>
-    });
-
-
-    
-    const handleRepoResult =  async (user) =>{
-        if (user && user !== 'username not found') {
-            
-           
-            setLoading(true);
-            const result = await fetchRepos(user);
-
-                if (result.length !== 0 ){
-                    setRepos(result);
-                    setRepoMessage('list of repos found ')
-                    setLoading(false);
-                   
-                }
-                else{
-                    setRepoMessage(' no repos are found');
-                    setRepos([]);
-                    setLoading(false);
-                    
-                }
-            
-            
-            }
-
-        else {
-            setRepoMessage('')
-            setRepos([]);
-        }
+    if (message === 'user found' && repos.length === 0 ){
+        message = 'no repos found '
     }
 
-    useEffect(() =>{
-        handleRepoResult(user);
-        return () => setLoading(false);
+    if (message === 'user found' && repos.length > 0  ){
+        message = ' repos found'
+    }
+    if (message ==='user not found'){
+        message = ''
+    }
 
         
-    }, [user])
+
+     const repoResult = repos.map((repo) =>{
+            
+            const {id, login,  name, html_url, description} = repo;
+            return <div key ={id} className = 'row'>
+                {name}
+            </div>
+        });
 
 
+
+    
     
 
 
@@ -83,7 +43,10 @@ const RepoResult = (props) =>{
     
     
     return <>
-    {loading? <Spinner /> : <ResultField />}
+    <div className = 'repo-container'>
+                 <h4>{message}</h4>
+                      {repoResult}
+            </div> 
     
     </>;
 };

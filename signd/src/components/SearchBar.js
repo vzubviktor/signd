@@ -10,9 +10,9 @@ const SearchBar = () =>{
 
     const [username, setUsername] = useState('');
     const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState('');
     const [repos, setRepos] = useState([]);
     const [orgs, setOrgs] = useState([]);
-    const [user, setUser] = useState('');
    
     
 
@@ -20,19 +20,31 @@ const SearchBar = () =>{
 
     const handleSubmit = async (e) =>{
         
+
         e.preventDefault();
         setLoading(true);
         const userResult = await fetchUser(username);
-        setLoading(false);
         
         if (userResult) {
-            setUser(username); 
+            const repoResult = await fetchRepos(username);
+            setRepos(repoResult);
+            const orgResult = await fetchOrgs(username);
+            setOrgs(orgResult);
+            setMessage('user found')
+            
+            
+
             }
         else {
+            setMessage('user not found')
             setRepos([]);
-            setUser('username not found');
+            setOrgs([]);
+
+           
             
         }
+        setLoading(false);
+
      
     };
 
@@ -42,29 +54,12 @@ const SearchBar = () =>{
         </div>
     };
 
-    const ResultField =  (props) =>{
-        const user = props.user;
-        return <>
-        <div className  = 'user'>
-            {user}
-        </div> 
-        <div className = 'result' > 
-            <div> 
-                <RepoResult user = {user} /> 
-            </div>
-            <div>
-                <OrgResult user = {user} />
-            </div>
-        </div>
-        </>
-    }
-
 
 
     return <> 
     <nav className ="navbar navbar-light bg-light">
         <div className="container-fluid">
-            <form className="d-flex" >
+            <form className="d-flex"  >
                 <input className = "form-control me-2"
                 type="search"
                 value = {username} 
@@ -75,7 +70,11 @@ const SearchBar = () =>{
             </form>
         </div>
     </nav> 
-    <div className = 'output'>{loading? <Spinner /> : <ResultField user  ={user} />}
+    <div className = 'output'>{loading? <Spinner />  : <div className = 'result'>
+                                                            <div className  = 'user'>{message}</div> 
+                                                            <RepoResult repos = {repos} message = {message} /> 
+                                                            <OrgResult orgs = {orgs} message = {message}/>
+                                                        </div>}
            
         
     </div>
